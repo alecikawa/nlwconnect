@@ -21,8 +21,8 @@ const getUser = (userData) => {
 }
 
 const showInvite = (user) => {
-    app.innerHTML = 
-    ` <input type="text" id="link" value="https://evento.com" disabled>
+    app.innerHTML = ` 
+    <input type="text" id="link" value="https://evento.com?ref=${user.ref}" disabled>
     <div id="stats">
       <h4>
         80
