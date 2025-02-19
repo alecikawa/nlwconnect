@@ -63,7 +63,7 @@ const showInvite = (user) => {
           </p>
         </section>
         `
-
+    app.setAttribute("class", "page-invite")
     updateImageLinks()
 }
 
@@ -157,9 +157,16 @@ const startApp = () => {
         </main>
     `
     app.innerHTML = content
+    app.setAttribute("class", "page-start")
     updateImageLinks()
     formAction()
 }
 startApp()
 
-document.getElementById("logo").onclick = () => startApp()
+// showInvite({
+//     email: 'text@text.com',
+//     phone: '123456789',
+//     ref: '100',
+// })
+
+document.querySelector("header").onclick = () => startApp()
