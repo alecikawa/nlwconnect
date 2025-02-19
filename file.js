@@ -3,7 +3,7 @@ const users = [
     {
         email: 'test@test.com',
         phone: '123456789',
-        ref: '123',
+        ref: '100',
         refBy: null,
     },
     {
@@ -11,7 +11,13 @@ const users = [
         phone: '123456789',
         ref: '200',
         refBy: 100,
-    }
+    },
+    {
+        email: 'tost@tost.com',
+        phone: '123456789',
+        ref: '300',
+        refBy: 200,
+    },
 ]
 
 const getUser = (userData) => {
@@ -20,17 +26,36 @@ const getUser = (userData) => {
     });
 }
 
+const getTotalSubscribers = (userData) => {
+    const subs = users.filter((user) => {
+        return user.refBy == userData.ref
+    })
+    return subs.length
+}
+
+
 const showInvite = (user) => {
     app.innerHTML = ` 
     <input type="text" id="link" value="https://evento.com?ref=${user.ref}" disabled>
     <div id="stats">
       <h4>
-        80
+        ${getTotalSubscribers(user)}
       </h4>
       <p>
         Inscrições feitas
       </p>
     </div>`
+}
+
+const saveUser = (userData) => {
+    const newUser = {
+        ...userData,
+        ref: Math.round(Math.random() * 4000),
+        refBy: 100
+    }
+
+    users.push(newUser)
+    return newUser
 }
 
 const formAction = () => {
@@ -47,7 +72,8 @@ const formAction = () => {
         if(user) {
             showInvite(user)
         } else {
-
+            const newUser = saveUser(userData)
+            showInvite(newUser)
         }
     }
 }
@@ -67,3 +93,5 @@ const startApp = () => {
     formAction();
 }
 startApp()
+
+document.getElementById("logo").onclick = () => startApp()
