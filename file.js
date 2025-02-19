@@ -1,9 +1,54 @@
 const app = document.getElementById("app");
+const users = [
+    {
+        email: 'test@test.com',
+        phone: '123456789',
+        ref: '123',
+        refBy: null,
+    },
+    {
+        email: 'tust@tust.com',
+        phone: '123456789',
+        ref: '200',
+        refBy: 100,
+    }
+]
+
+const getUser = (userData) => {
+    return users.find((user) => {
+        return user.email == userData.email
+    });
+}
+
+const showInvite = (user) => {
+    app.innerHTML = 
+    ` <input type="text" id="link" value="https://evento.com" disabled>
+    <div id="stats">
+      <h4>
+        80
+      </h4>
+      <p>
+        Inscrições feitas
+      </p>
+    </div>`
+}
 
 const formAction = () => {
     const form = document.getElementById("form");
     form.onsubmit = (event) => {
         event.preventDefault();
+        const formData = new FormData(form);
+        const userData =  {
+            email: formData.get("email"),
+            phone: formData.get("phone")
+        }
+
+        const user = getUser(userData)
+        if(user) {
+            showInvite(user)
+        } else {
+
+        }
     }
 }
 
@@ -15,8 +60,8 @@ const startApp = () => {
     <button>
         Confirmar
     </button>
-</form>
-`
+    </form>
+    `
     app.innerHTML = content;
 
     formAction();
